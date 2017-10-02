@@ -29,9 +29,9 @@ case "$1" in
   INSERT INTO ${PREFIX}usermeta (umeta_id, user_id, meta_key, meta_value)
   VALUES (NULL, (Select max(id) FROM ${PREFIX}users), '${PREFIX}user_level', '10');
 EOF
-echo -e "          ${GREEN}${BLINK}User Credentials${UNBLINK}${SET}"
-echo "          Username: $user"
-echo "          Password: $pass"
+echo -e "${GREEN}${BLINK}User Credentials${UNBLINK}${SET}"
+echo "Username: $user"
+echo "Password: $pass"
 break
 ;;
 -l)
@@ -44,9 +44,9 @@ break
 mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} <<EOF
 UPDATE ${DB_NAME}.${PREFIX}users SET user_pass = MD5('$pass') WHERE user_login = '$2'
 EOF
-echo -e "          ${GREEN}${BLINK}User Credentials${UNBLINK}${SET}"
-echo "          Username: $user"
-echo "          Password: $pass"
+echo -e "${GREEN}${BLINK}User Credentials${UNBLINK}${SET}"
+echo "Username: $user"
+echo "Password: $pass"
 break
 ;;
 -f)
