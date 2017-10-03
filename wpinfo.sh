@@ -9,16 +9,17 @@ BLUESH="\e[44m"
 SETSH="\e[49m"
 
 if [[ -f wp-config.php ]]; then
-        dbname=$(grep -i 'DB_NAME' wp-config.php | cut -d"'" -f4)
-        dbuser=$(grep -i 'DB_USER' wp-config.php | cut -d"'" -f4)
-        dbpass=$(grep -i 'DB_PASSWORD' wp-config.php | cut -d"'" -f4)
-        dbhost=$(grep -i 'DB_HOST' wp-config.php | cut -d"'" -f4)
+        wpconn=( $(awk -F "'" '/DB_NAME|DB_USER|DB_PASSWORD|DB_HOST/{print $4,$8,$12,$16}' wp-config.php) )
+        DB_NAME=${wpconn[0]}
+        DB_USER=${wpconn[1]}
+        DB_PASSWORD=${wpconn[2]}
+        DB_HOST=${wpconn[3]}
         prefix=$(grep -i 'table_prefix' wp-config.php | cut -d"'" -f2)
         version=$(grep -i "wp_version =" wp-includes/version.php | cut -d"'" -f2)
-        echo "${GREEN}Database${SET}: $dbname"
-        echo "${GREEN}User${SET}: $dbuser"
-        echo "${GREEN}Password${SET}: $dbpass"
-        echo "${GREEN}Host${SET}: $dbhost"
+        echo "${GREEN}Database${SET}: ${DB_NAME}"
+        echo "${GREEN}User${SET}: ${DB_USER}"
+        echo "${GREEN}Password${SET}: ${DB_PASSWORD}"
+        echo "${GREEN}Host${SET}: ${DB_HOST}"
         echo "${GREEN}TablePrefix${SET}: $prefix"
         echo "${GREEN}WP Version${SET}: $version"
 else
