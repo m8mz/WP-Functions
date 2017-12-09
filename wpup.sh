@@ -8,7 +8,7 @@ UNBLINK="\e[25m"
 BLUESH="\e[44m"
 SETSH="\e[49m"
 
-wpconn=( $(awk -F "'" '/DB_NAME|DB_USER|DB_PASSWORD|DB_HOST/{print $4,$8,$12,$16}' wp-config.php) )
+wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
 DB_NAME=${wpconn[0]}
 DB_USER=${wpconn[1]}
 DB_PASSWORD=${wpconn[2]}

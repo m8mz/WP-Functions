@@ -8,7 +8,9 @@ UNBLINK="\e[25m"
 BLUESH="\e[44m"
 SETSH="\e[49m"
 
-wpconn=( $(awk -F "'" '/DB_NAME|DB_USER|DB_PASSWORD|DB_HOST/{print $4,$8,$12,$16}' wp-config.php) )
+if [ -e wp-config.php ]
+then
+wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
 DB_NAME=${wpconn[0]}
 DB_USER=${wpconn[1]}
 DB_PASSWORD=${wpconn[2]}
@@ -21,6 +23,9 @@ while [ $# -gt 0 ]
 do
 case "$1" in
 -n)
+if [[ ! -z $3 ]]; then
+  pass="$3"
+fi
   mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} <<EOF
   INSERT INTO ${PREFIX}users (user_login, user_pass, user_nicename, user_email, user_status)
   VALUES ('$user',MD5('$pass'), 'firstname lastname', 'email@example.com', '0');
@@ -41,6 +46,9 @@ EOF
 break
 ;;
 -u)
+if [[ ! -z $3 ]]; then
+  pass="$3"
+fi
 mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} <<EOF
 UPDATE ${DB_NAME}.${PREFIX}users SET user_pass = MD5('$pass') WHERE user_login = '$2'
 EOF
@@ -67,9 +75,12 @@ DELETE FROM ${PREFIX}users WHERE user_login = '$2';
 EOF
 echo "${RED}Deleted${SET}: $2"
 else
-echo -e "Usage: wpuser [-n] [-l] [-u USER] [-f STRING] [-d USER]"
+echo -e "Usage: wpuser [-n <PASSWORD>] [-l] [-u USER <PASSWORD>] [-f STRING] [-d USER]"
 fi
 break
 ;;
 esac
 done
+else
+  echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
+fi

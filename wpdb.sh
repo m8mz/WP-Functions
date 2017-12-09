@@ -15,12 +15,11 @@ do
       sqlfile=$2
       if [[ -f wp-config.php ]]
       then
-        wpconn=( $(awk -F "'" '/DB_NAME|DB_USER|DB_PASSWORD|DB_HOST/{print $4,$8,$12,$16}' wp-config.php) )
+        wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
         DB_NAME=${wpconn[0]}
         DB_USER=${wpconn[1]}
         DB_PASSWORD=${wpconn[2]}
         DB_HOST=${wpconn[3]}
-        echo -e "${BLUESH}Command${SETSH}: mysql -h ${DB_HOST} -u ${DB_USER} -p'${DB_PASSWORD}' ${DB_NAME} < ${sqlfile}"
         echo "Importing ${sqlfile} To $dbname"
         mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} ${DB_NAME} < ${sqlfile}
         chk_mysql=$?
@@ -39,12 +38,11 @@ do
     -x|--export)
       if [[ -f wp-config.php ]]
         then
-          wpconn=( $(awk -F "'" '/DB_NAME|DB_USER|DB_PASSWORD|DB_HOST/{print $4,$8,$12,$16}' wp-config.php) )
+          wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
           DB_NAME=${wpconn[0]}
           DB_USER=${wpconn[1]}
           DB_PASSWORD=${wpconn[2]}
           DB_HOST=${wpconn[3]}
-          echo -e "${BLUESH}Command${SETSH}: mysqldump -h ${DB_HOST} -u ${DB_USER} -p'${DB_PASSWORD}' ${DB_NAME} > ${DB_NAME}_${today}.sql"
           echo "Dumping ${DB_NAME}"
           mysqldump -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} ${DB_NAME} > ${DB_NAME}_${today}.sql
           if [[ mysqldump -eq 0 ]]

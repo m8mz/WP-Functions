@@ -11,7 +11,7 @@ SETSH="\e[49m"
 if [ -e wp-config.php ]
 then
   RAND=$(< /dev/urandom tr -dc 0-9 | head -c${1:-7};echo;)
-  wpconn=( $(awk -F "'" '/DB_NAME|DB_USER|DB_PASSWORD|DB_HOST/{print $4,$8,$12,$16}' wp-config.php) )
+  wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
   DB_NAME=${wpconn[0]}
   DB_USER=${wpconn[1]}
   DB_PASSWORD=${wpconn[2]}
@@ -28,9 +28,9 @@ then
   sed -ie "s,DB_PASSWORD'\, '${DB_PASSWORD}',DB_PASSWORD'\, '${dbpass}'," wp-config.php
   sed -ie "s,DB_HOST'\, '${DB_HOST}',DB_HOST'\, '${dbhost}'," wp-config.php
   echo "${RED}Old Config${SET}"
-  echo "  ${DB_NAME} ${DB_USER} ${DB_PASSWORD} ${DB_HOST}"
+  echo -e "\t${DB_NAME} ${DB_USER} ${DB_PASSWORD} ${DB_HOST}"
   echo "${GREEN}New Config${SET}"
-  echo "  $dbname $dbuser $dbpass"
+  echo -e "\t$dbname $dbuser $dbpass"
 else
   echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
 fi
