@@ -81,16 +81,16 @@ do
       done
     break
     ;;
-			--reset)
-			wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-			if [[ $2 == '-y' ]]; then
-				php ./wp-cli.phar db reset --yes
-			else
-				php ./wp-cli.phar db reset
-			fi
-			rm -f wp-cli.phar
-		break
-		;;
+	--reset)
+	wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	if [[ $2 == '-y' ]]; then
+		php ./wp-cli.phar db reset --yes
+	else
+		php ./wp-cli.phar db reset
+	fi
+	rm -f wp-cli.phar
+	break
+	;;
   esac
 done
 }
