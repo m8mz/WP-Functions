@@ -20,15 +20,15 @@ then
     if [[ $1 == '-n' ]]; then
             mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -e "UPDATE ${PREFIX}options SET option_value = '$2' WHERE option_name = 'siteurl' OR option_name = 'home';"
     elif [[ $1 == '-h' ]]; then
-            mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -e "UPDATE ${PREFIX}options SET option_value = '$2' WHERE option_name = 'home';
+            mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -e "UPDATE ${PREFIX}options SET option_value = '$2' WHERE option_name = 'home';"
     elif [[ $1 == '-s' ]]; then
-            mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -e "UPDATE ${PREFIX}options SET option_value = '$2' WHERE option_name = 'siteurl';
+            mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -e "UPDATE ${PREFIX}options SET option_value = '$2' WHERE option_name = 'siteurl';"
     fi
   SITE_URL=$(mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -se "SELECT option_value FROM ${PREFIX}options WHERE option_name = 'siteurl';" | cut -f2)
   HOME_URL=$(mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} -se "SELECT option_value FROM ${PREFIX}options WHERE option_name = 'home';" | cut -f2)
-  echo "${BLUESH}Database${SETSH}: ${DB_NAME}"
-  echo "${GREEN}Home URL${SET}: $HOME_URL"
-  echo "${GREEN}Site URL${SET}: ${SITE_URL}"
+  echo -e "${BLUESH}Database${SETSH}: ${DB_NAME}"
+  echo -e "${GREEN}Home URL${SET}: $HOME_URL"
+  echo -e "${GREEN}Site URL${SET}: ${SITE_URL}"
 else
   echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
 fi
