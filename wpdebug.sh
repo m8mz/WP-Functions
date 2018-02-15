@@ -8,6 +8,7 @@ UNBLINK="\e[25m"
 BLUESH="\e[44m"
 SETSH="\e[49m"
 
+function wpdebug() {
 if [[ $# -eq 1 ]]
   then
     if [[ $1 == 'on' ]]; then
@@ -22,3 +23,4 @@ if [[ $# -eq 1 ]]
 else
   echo -e "${BLINK}${GREEN}USAGE${SET}${UNBLINK}: wpdebug (on|off)"
 fi
+}

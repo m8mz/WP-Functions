@@ -8,6 +8,7 @@ UNBLINK="\e[25m"
 BLUESH="\e[44m"
 SETSH="\e[49m"
 
+function wpurl() {
 if [ -e wp-config.php ]
 then
   PREFIX=$(grep -i 'table_prefix' wp-config.php | cut -d"'" -f2)
@@ -31,3 +32,4 @@ then
 else
   echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
 fi
+}

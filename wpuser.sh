@@ -8,6 +8,7 @@ UNBLINK="\e[25m"
 BLUESH="\e[44m"
 SETSH="\e[49m"
 
+function wpuser() {
 if [ -e wp-config.php ]
 then
 wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
@@ -84,3 +85,4 @@ done
 else
   echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
 fi
+}
