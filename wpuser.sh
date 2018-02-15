@@ -24,8 +24,8 @@ while [ $# -gt 0 ]
 do
 case "$1" in
 -n)
-if [[ ! -z $3 ]]; then
-  pass="$3"
+if [[ ! -z $2 ]]; then
+  pass="$2"
 fi
   mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} <<EOF
   INSERT INTO ${PREFIX}users (user_login, user_pass, user_nicename, user_email, user_status)
@@ -54,7 +54,7 @@ mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -D ${DB_NAME} <<EOF
 UPDATE ${DB_NAME}.${PREFIX}users SET user_pass = MD5('$pass') WHERE user_login = '$2'
 EOF
 echo -e "${GREEN}${BLINK}User Credentials${UNBLINK}${SET}"
-echo "Username: $user"
+echo "Username: $2"
 echo "Password: $pass"
 break
 ;;
@@ -74,7 +74,7 @@ DELETE FROM ${PREFIX}usermeta WHERE user_id = '$userid' AND meta_key = '${PREFIX
 DELETE FROM ${PREFIX}usermeta WHERE user_id = '$userid' AND meta_key = '${PREFIX}user_level';
 DELETE FROM ${PREFIX}users WHERE user_login = '$2';
 EOF
-echo "${RED}Deleted${SET}: $2"
+echo -e "${RED}Deleted${SET}: $2"
 else
 echo -e "Usage: wpuser [-n <PASSWORD>] [-l] [-u USER <PASSWORD>] [-f STRING] [-d USER]"
 fi
