@@ -9,8 +9,7 @@ BLUESH="\e[44m"
 SETSH="\e[49m"
 
 function wpuser() {
-if [ -e wp-config.php ]
-then
+if [ -e wp-config.php ]; then
 wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
 DB_NAME=${wpconn[0]}
 DB_USER=${wpconn[1]}
