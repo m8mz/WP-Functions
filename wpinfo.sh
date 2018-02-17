@@ -17,12 +17,12 @@ if [[ -f wp-config.php ]]; then
         DB_HOST=${wpconn[3]}
         prefix=$(grep -i 'table_prefix' wp-config.php | cut -d"'" -f2)
         version=$(grep -i "wp_version =" wp-includes/version.php | cut -d"'" -f2)
-        echo "${GREEN}Database${SET}: ${DB_NAME}"
-        echo "${GREEN}User${SET}: ${DB_USER}"
-        echo "${GREEN}Password${SET}: ${DB_PASSWORD}"
-        echo "${GREEN}Host${SET}: ${DB_HOST}"
-        echo "${GREEN}TablePrefix${SET}: $prefix"
-        echo "${GREEN}WP Version${SET}: $version"
+        echo -e "${GREEN}Database${SET}: ${DB_NAME}"
+        echo -e "${GREEN}User${SET}: ${DB_USER}"
+        echo -e "${GREEN}Password${SET}: ${DB_PASSWORD}"
+        echo -e "${GREEN}Host${SET}: ${DB_HOST}"
+        echo -e "${GREEN}TablePrefix${SET}: $prefix"
+        echo -e "${GREEN}WP Version${SET}: $version"
 else
         echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
 fi
