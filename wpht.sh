@@ -1,12 +1,8 @@
 #!/bin/bash
-# Marcus H.
-RED="\e[31m"
-GREEN="\e[32m"
-SET="\e[0m"
-BLINK="\e[5m"
-UNBLINK="\e[25m"
-BLUESH="\e[44m"
-SETSH="\e[49m"
+# Description: This will use the WP-CLI to update the rewrite rules for WordPress in the .htaccess.
+# Use:
+# wpht	- Simply run the script with a WordPress install in your CWD.
+# Author: Marcus Hancock-Gaillard
 
 function wpht() {
 	if [[ -f wp-config.php ]]; then

@@ -1,12 +1,12 @@
 #!/bin/bash
-# Marcus H.
-RED="\e[31m"
-GREEN="\e[32m"
-SET="\e[0m"
-BLINK="\e[5m"
-UNBLINK="\e[25m"
-BLUESH="\e[44m"
-SETSH="\e[49m"
+# Description: This function reads the database credentials from the wp-config.php file located in the CWD.
+# With these credentials, you are able to import/export the database(s) from MySQL/MariaDB.
+# Flags for the command:
+# -i) wpdb -i [FILENAME] - This imports the specified database file.
+# -x) wpdb -x 		 - This will provide a database export in the CWD (Naming Structure: ${DB_NAME}_${TODAYSDATE}.sql)
+# -r) wpdb -r 		 - This will recursively export databases for every WordPress install that it finds from the CWD.
+# --reset) wpdb --reset	 - This will clear out all tables in the database.
+# Author: Marcus Hancock-Gaillard
 
 function wpdb() {
 	while [ $# -gt 0 ]; do

@@ -1,12 +1,12 @@
 #!/bin/bash
-# Marcus H.
-RED="\e[31m"
-GREEN="\e[32m"
-SET="\e[0m"
-BLINK="\e[5m"
-UNBLINK="\e[25m"
-BLUESH="\e[44m"
-SETSH="\e[49m"
+# Description: This script will allow you to view/find/create/modify/delete users for WordPress.
+# Use: * All following usages with any argument inside [] are optional fields. Either the missing field will be randomly generated or is not necessary for the script to run.
+# -n) wpdb -n [password] - Generates an Administrator WordPress user with an optional password field.
+# -l) wpdb -l 		 - This will list all WordPress users that are in the database.
+# -u) wpdb -u admin [password] - This will update the specified user's password in this example this would be "admin" with an optional password field.
+# -f) wpdb -f marcus	 - This will search for WordPress users that contain the provided string in this example this would be "marcus".
+# -d) wpdb -d marcus	 - This will delete a WordPress user from the database. This includes meta tables to prevent ghost records staying in the database.
+# Author: Marcus Hancock-Gaillard
 
 function wpuser() {
 if [ -e wp-config.php ]; then

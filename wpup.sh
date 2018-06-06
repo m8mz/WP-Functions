@@ -1,12 +1,13 @@
 #!/bin/bash
-# Marcus H.
-RED="\e[31m"
-GREEN="\e[32m"
-SET="\e[0m"
-BLINK="\e[5m"
-UNBLINK="\e[25m"
-BLUESH="\e[44m"
-SETSH="\e[49m"
+# Description: This function will update the targeted field with new information inside the wp-config.php file.
+# This script will be able to quickly update the db credentials and the table prefix.
+# Use:
+# -h) wpup -h localhost - This will update the host field.
+# -u) wpup -u cpanel_user - This will update the database user field.
+# -d) wpup -d cpanel_database - This will update the database field.
+# -p) wpup -p password - This will update the password field.
+# -f) wpup -f wp_ - This will update the table prefix field.
+# Author: Marcus Hancock-Gaillard
 
 function wpup() {
 	wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )

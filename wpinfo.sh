@@ -1,12 +1,6 @@
 #!/bin/bash
-# Marcus H.
-RED="\e[31m"
-GREEN="\e[32m"
-SET="\e[0m"
-BLINK="\e[5m"
-UNBLINK="\e[25m"
-BLUESH="\e[44m"
-SETSH="\e[49m"
+# Description: Provides database and table prefix information from the wp-config.php file. Must be ran with a WordPress install in your CWD.
+# Author: Marcus Hancock-Gaillard
 
 function wpinfo() {
 	if [[ -f wp-config.php ]]; then

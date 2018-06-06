@@ -1,12 +1,11 @@
 #!/bin/bash
-# Marcus H.
-RED="\e[31m"
-GREEN="\e[32m"
-SET="\e[0m"
-BLINK="\e[5m"
-UNBLINK="\e[25m"
-BLUESH="\e[44m"
-SETSH="\e[49m"
+# Description: This will interact with the database fields for home and siteurl in WordPress databases.
+# Use:
+# wpurl 	- Running this script with no arguments will print out the current home and siteurl fields from the database.
+# -n) wpurl -n https://www.wordpress.org - This will update both the home and siteurl fields.
+# -h) wpurl -h https://www.wordpress.org - This will only update the home field.
+# -s) wpurl -s https://www.wordpress.org - This will only update the site field.
+# Author: Marcus Hancock-Gaillard
 
 function wpurl() {
 	if [ -f wp-config.php ]; then
