@@ -8,7 +8,7 @@
 # -d) wpdb -d marcus	 - This will delete a WordPress user from the database. This includes meta tables to prevent ghost records staying in the database.
 # Author: Marcus Hancock-Gaillard
 
-function wpuser() {
+
 if [ -e wp-config.php ]; then
 wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
 DB_NAME=${wpconn[0]}
@@ -84,4 +84,3 @@ done
 else
   echo -e "${RED}${BLINK}Issue${UNBLINK}${SET}: No WordPress Config File"
 fi
-}
