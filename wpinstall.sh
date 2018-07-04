@@ -20,11 +20,13 @@ if [[ $(pwd) =~ $regex ]] && [[ $num_of_files < 1 ]] && [[ ! -d "wp-content" ]];
         tar -xf latest.tar.gz --strip-components=1 wordpress/
         rm -f latest.tar.gz
         if [[ $(whoami) == "root" ]]; then
-                sed -ie "s,database_name_here,$dbname,;s,username_here,$dbuser,;s,password_here,$dbpass,;s,wp_,wp_${prefix}_,;" wp-config-sample.php
+                sed -n '1,48p' wp-config-sample.php > wp-config.php
+                wget -qO - https://api.wordpress.org/secret-key/1.1/salt/ >> wp-config.php
+                sed -n '57,89p' wp-config-sample.php >> wp-config.php
+                sed -ie "s,database_name_here,$dbname,;s,username_here,$dbuser,;s,password_here,$dbpass,;s,wp_,wp_${prefix}_,;" wp-config.php
                 echo $creation_query | mysql
                 if [[ $? == 0 ]]; then
                         echo "Database Creation Successful."
-                        mv wp-config-sample.php wp-config.php
                         /usr/local/cpanel/bin/dbmaptool $cpuser --type 'mysql' --dbs ${dbname} --dbusers ${dbuser}
                         echo "Wordpress installed."
                 else
