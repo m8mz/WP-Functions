@@ -3,12 +3,12 @@
 
 
 cpuser=$(pwd | cut -d'/' -f3)
-dbname="$(echo $cpuser | head -c8)_$(< /dev/urandom tr -dc A-Z-a-z-0-9 | head -c5)"
-dbuser="$(echo $cpuser | head -c8)_$(< /dev/urandom tr -dc A-Z-a-z-0-9 | head -c5)"
-dbpass=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c15)
+dbname="$(echo $cpuser | head -c8)_$(< /dev/urandom tr -dc A-Za-z0-9 | head -c5)"
+dbuser="$(echo $cpuser | head -c8)_$(< /dev/urandom tr -dc A-Za-z0-9 | head -c5)"
+dbpass=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c15)
 regex="\/home\/[A-Za-z0-9]+\/public_html.*"
 num_of_files=$(find . -maxdepth 1 -type f ! -iname "*.htaccess*" | wc -l)
-prefix=$(< /dev/urandom tr -dc A-Z-a-z-0-9 | head -c3)
+prefix=$(< /dev/urandom tr -dc A-Za-z0-9 | head -c3)
 creation_query="\
 CREATE DATABASE $dbname;
 CREATE USER '${dbuser}'@'localhost' IDENTIFIED BY '${dbpass}';
