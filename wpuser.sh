@@ -10,7 +10,7 @@
 
 
 if [ -e wp-config.php ]; then
-wpconn=( $(awk -F "'" "/^define\('DB_[NUPH]/{print \$4}" wp-config.php) )
+wpconn=( $(awk -F "'" "/^define\( ?'DB_[NUPH]/{print \$4}" wp-config.php) )
 DB_NAME=${wpconn[0]}
 DB_USER=${wpconn[1]}
 DB_PASSWORD=${wpconn[2]}
